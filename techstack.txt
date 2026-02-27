@@ -1,0 +1,25 @@
+Mobile
+    Flutter
+    Riverpod
+    Dio (API client)
+    FCM
+    Razorpay
+
+Backend
+    NestJS
+    Prisma ORM
+    PostgreSQL (Neon/Supabase)
+    Clerk JWT verification
+    Cloudinary SDK
+    Swagger
+
+Admin Panel
+    Next.js
+    Tailwind
+    React Query (for API)
+
+Infra
+    Vercel (admin)
+    Railway/Render (backend)
+    Cloudinary (images)
+    Clerk (auth)

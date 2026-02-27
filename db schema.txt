@@ -1,0 +1,17 @@
+Core Entities (Mental Model)
+    Users & Addresses
+    Product Catalog
+    Cart
+    Orders
+    Payments & Status
+
+High Level ER diagram(entity-relation)
+User ──< Address
+User ──< Order ──< OrderItem ── ProductVariant ── Product ── Category
+                           └── CustomMessage
+
+Product ──< ProductImage
+Product ──< ProductVariant (size/weight/price)
+
+Order ── Payment
+Order ── OrderStatusHistory
