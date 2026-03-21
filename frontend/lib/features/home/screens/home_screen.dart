@@ -20,26 +20,14 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  Future<void> syncUser() async {
-    try {
-      final clerkAuth = ClerkAuth.of(context);
-
-      final token = await clerkAuth.getToken();
-
-      if (token == null) {
-        print("No token");
-        return;
-    }
-
-      print("TOKEN: $token");
-
-      await AuthService.syncUser(token!);
-
-      print("User synced successfully");
-    } catch (e) {
-      print("Sync error: $e");
-    }
+Future<void> syncUser() async {
+  await AuthService.login(
+    name: Clerk.instance.user?.firstName ?? "User",
+    email: Clerk.instance.user?.emailAddresses.first.emailAddress ?? "",
+    phone: "",
+  );
   }
+}
 
   @override
   Widget build(BuildContext context) {
