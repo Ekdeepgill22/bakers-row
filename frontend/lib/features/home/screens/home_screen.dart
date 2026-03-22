@@ -21,11 +21,29 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 Future<void> syncUser() async {
-  await AuthService.login(
-    name: Clerk.instance.user?.firstName ?? "User",
-    email: Clerk.instance.user?.emailAddresses.first.emailAddress ?? "",
-    phone: "",
-  );
+  try {
+    final clerkAuth = ClerkAuth.of(context);
+    final user = clerkAuth.user;
+
+    if (user == null) {
+      print("No user found");
+      return;
+    }
+
+    final email = user.emailAddresses?.isNotEmpty == true
+        ? user.emailAddresses!.first.emailAddress
+        : "";
+
+    await AuthService.login(
+      clerkId: user.id,
+      name: user.firstName ?? "User",
+      email: email,
+      phone: "",
+    );
+
+    print("User synced successfully");
+  } catch (e) {
+    print("Sync error: $e");
   }
 }
 

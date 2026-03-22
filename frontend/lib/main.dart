@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:clerk_flutter/clerk_flutter.dart';
 
+import 'features/home/screens/home_screen.dart';
+import 'features/auth/screens/login_screen.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
 
-  Clerk.init(
-    publishableKey: dotenv.env['CLERK_PUBLISHABLE_KEY']!,
-  );
+  final key = dotenv.env['CLERK_PUBLISHABLE_KEY'];
+
+  if (key == null) {
+    throw Exception("CLERK_PUBLISHABLE_KEY not found in .env");
+  }
+
+  ClerkAuth.of(init(publishableKey: key));
 
   runApp(const MyApp());
 }
@@ -18,16 +25,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home: ClerkAuth(
-        child: SignedIn(
-          child: HomeScreen(),
+    return ClerkAuth(
+      signedOutBuilder: (_) => const LoginScreen(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: const Color.fromARGB(255, 168, 148, 203)),
         ),
-        signedOutBuilder: (_) => const LoginScreen(),
+        home: SignedIn(
+          child: const HomeScreen(),
+        ),
       ),
     );
   }
