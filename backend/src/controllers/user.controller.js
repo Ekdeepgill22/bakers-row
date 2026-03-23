@@ -1,10 +1,22 @@
-import { createuser } from "../repositories/user.repository.js";
+import { createuser, getUserByClerkID } from "../repositories/user.repository.js";
 
 export const registerUser = async(req,res) => {
     try{
-        const {clerk_id,name,email,phone} = req.body
+        const clerk_id = req.user.clerk_id;
 
-        const user = await createuser({clerk_id,name,email,phone});
+        const {name,email,phone} = req.body
+
+        let user = await getUserByClerkID(clerk_id);
+
+        if(user){
+            return res.status(200).json({
+                success: true,
+                message: "User Already exists",
+                data: user,
+            });
+        }
+
+        user = await createuser({clerk_id,name,email,phone});
 
         res.status(201).json({
             success: true,
