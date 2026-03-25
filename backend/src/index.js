@@ -18,7 +18,7 @@ const PORT = process.env.PORT || 5000;
 
 // database connection
 pool.connect()
-    .then(() => console.log("Postgre SQL AWS Connected"))
+    .then(() => console.log("Postgre SQL Supabase Connected"))
     .catch(err => console.log("Database connection failed",err));
 
 // User Route handled
