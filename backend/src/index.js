@@ -3,6 +3,7 @@ import express from "express";
 import cors from "cors";
 import pool from "./config/db.js";
 import userRoutes from "./routes/user.routes.js"
+import authRoutes from "./routes/auth.routes.js"
 
 const app = express();
 
@@ -23,6 +24,7 @@ pool.connect()
 
 // User Route handled
 app.use("/api/users",userRoutes); 
+app.use("/api/auth", authRoutes);
 
 // backed running on PORT 5000
 app.listen(PORT, () => {
