@@ -8,17 +8,9 @@ class LoginScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text("Login")),
-      body: Center(
-        child: ClerkAuth(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SignInButton(),
-              const SizedBox(height: 20),
-              SignUpButton(),
-            ],
-          ),
-        ),
+      body: const Center(
+        // ClerkAuthentication handles both Sign In and Sign Up flows
+        child: ClerkAuthentication(), 
       ),
     );
   }
