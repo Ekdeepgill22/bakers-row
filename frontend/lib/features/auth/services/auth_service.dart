@@ -1,14 +1,8 @@
-import 'package:clerk_flutter/clerk_flutter.dart';
+import 'package:dio/dio.dart';
 import '../../../core/network/dio_client.dart';
 
 class AuthService {
-  static Future<void> syncUser() async {
-    final token = await Clerk.instance.session?.getToken();
-
-    if (token == null) {
-      throw Exception("No token found");
-    }
-
+  static Future<void> syncUser(String token) async {
     await DioClient.dio.post(
       "/users/sync",
       data: {
